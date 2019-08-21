@@ -5,6 +5,8 @@ module.exports = {
       patterns: []
     }
   },
+
   baseUrl: process.env.BASE_URL,
-  outputDir: undefined,
+  publicPath: '/SlapMap/',
+  productionSourceMap: false
 }

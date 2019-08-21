@@ -17,7 +17,7 @@ export default {
             const google = await gmapsInit();
             axios.get(url)
                 .then((response) => {
-                    var data = csv2array(response.data, ',');
+                    const data = csv2array(response.data, ',');
                     const map = new google.maps.Map(
                         document.getElementById('map'), {
                             zoom: 5,
@@ -212,6 +212,8 @@ export default {
                                 ]
                         });
                     
+                    var gMarkers = [];
+
                     for (var i = 0; i < data.length; i++) {
                         if (!isNaN(data[i][2])) {
                             var marker = new google.maps.Marker({
@@ -225,8 +227,13 @@ export default {
                                     scaledSize: new google.maps.Size(32,32)
                                 }
                             });
+                            gMarkers.push(marker);
                         }
                     }
+
+                    var mc = new MarkerClusterer(map, gMarkers, {
+                            imagePath: 'https://mkvug.github.io/SlapMap/img/cluster.svg'
+                        });
                 })
     } catch (error) {
       console.error(error);
