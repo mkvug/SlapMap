@@ -4,5 +4,7 @@ module.exports = {
       preProcessor: 'scss',
       patterns: []
     }
-  }
+  },
+  baseUrl: process.env.BASE_URL,
+  outputDir: undefined,
 }
