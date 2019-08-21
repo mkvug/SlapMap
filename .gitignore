@@ -2,6 +2,7 @@
 node_modules
 /dist
 config.json
+.env.production
 
 # local env files
 .env.local
