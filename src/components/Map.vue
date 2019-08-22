@@ -231,9 +231,18 @@ export default {
                         }
                     }
 
-                    var mc = new MarkerClusterer(map, gMarkers, {
-                            // imagePath: 'https://mkvug.github.io/SlapMap/img/cluster'
-                        });
+                    var options = {
+                        // cssClass: 'cluster-img',
+                        styles: [{
+                            height: 50,
+                            width: 50,
+                            url: 'https://mkvug.github.io/SlapMap/c1.png',
+                        }],
+                        imagePath: 'https://mkvug.github.io/SlapMap/c1.png'
+                    };
+
+
+                    var mc = new MarkerClusterer(map, gMarkers, options);
                 })
     } catch (error) {
       console.error(error);
