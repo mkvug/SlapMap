@@ -7,6 +7,5 @@ module.exports = {
   },
 
   baseUrl: process.env.BASE_URL,
-  publicPath: '/SlapMap/',
   productionSourceMap: false
 }
