@@ -232,7 +232,7 @@ export default {
                     }
 
                     var mc = new MarkerClusterer(map, gMarkers, {
-                            imagePath: 'https://mkvug.github.io/SlapMap/img/cluster.svg'
+                            imagePath: 'https://mkvug.github.io/SlapMap/img/cluster'
                         });
                 })
     } catch (error) {
