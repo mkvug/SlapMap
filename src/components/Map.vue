@@ -17,7 +17,9 @@ export default {
             const google = await gmapsInit();
             axios.get(url)
                 .then((response) => {
-                    const data = csv2array(response.data, ',');
+                    // console.log(response.data);
+                    const data = Papa.parse(response.data);
+                    // console.log(data);
                     const map = new google.maps.Map(
                         document.getElementById('map'), {
                             zoom: 5,
@@ -214,16 +216,17 @@ export default {
                     
                     var gMarkers = [];
 
-                    for (var i = 0; i < data.length; i++) {
-                        if (!isNaN(data[i][2])) {
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (!isNaN(data.data[i][2])) {
+                            console.log(data.data[i]);
                             var marker = new google.maps.Marker({
                                 position: {
-                                    lat: parseFloat(data[i][2]),
-                                    lng: parseFloat(data[i][3])
+                                    lat: parseFloat(data.data[i][3]),
+                                    lng: parseFloat(data.data[i][4])
                                 },
                                 map: map,
                                 icon: {
-                                    url: data[i][4],
+                                    url: data.data[i][5],
                                     scaledSize: new google.maps.Size(32,32)
                                 }
                             });
@@ -238,7 +241,8 @@ export default {
                             width: 50,
                             url: 'https://mkvug.github.io/SlapMap/c1.png',
                         }],
-                        imagePath: 'https://mkvug.github.io/SlapMap/c1.png'
+                        imagePath: 'https://mkvug.github.io/SlapMap/c1.png',
+                        maxZoom: 8
                     };
 
 
@@ -341,7 +345,7 @@ function csv2array(data, delimeter) {
     // go to the next character
     c = data.charAt(++i);
   }  
-  
+
   return array;
 }
 </script>
