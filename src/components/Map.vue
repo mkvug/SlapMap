@@ -17,9 +17,7 @@ export default {
             const google = await gmapsInit();
             axios.get(url)
                 .then((response) => {
-                    // console.log(response.data);
                     const data = Papa.parse(response.data);
-                    // console.log(data);
                     const map = new google.maps.Map(
                         document.getElementById('map'), {
                             zoom: 5,
@@ -216,9 +214,17 @@ export default {
                     
                     var gMarkers = [];
 
+                    var oms = new OverlappingMarkerSpiderfier(map, {
+                        markersWontMove: true,
+                        markersWontHide: true,
+                        basicFormatEvents: true,
+                        spiralFootSeparation: 200,
+                        spiralLengthStart: 200,
+                        spiralLengthFactor: 200
+                    });
+
                     for (var i = 0; i < data.data.length; i++) {
                         if (!isNaN(data.data[i][2])) {
-                            console.log(data.data[i]);
                             var marker = new google.maps.Marker({
                                 position: {
                                     lat: parseFloat(data.data[i][3]),
@@ -230,6 +236,11 @@ export default {
                                     scaledSize: new google.maps.Size(32,32)
                                 }
                             });
+                            google.maps.event.addListener(marker, 'spider_click', function(e) {  // 'spider_click', not plain 'click'
+                                // iw.setContent(markerData.text);
+                                // iw.open(map, marker);
+                            });
+                            oms.addMarker(marker);
                             gMarkers.push(marker);
                         }
                     }
@@ -247,6 +258,7 @@ export default {
 
 
                     var mc = new MarkerClusterer(map, gMarkers, options);
+
                 })
     } catch (error) {
       console.error(error);
